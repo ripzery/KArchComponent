@@ -26,3 +26,16 @@ data class Result(
         val incomplete_results: Boolean,
         val items: List<User>)
 
+data class Repository(
+        val id: Int,
+        val name: String,
+        @SerializedName("full_name") val fullName: String,
+        @SerializedName("stargazers_count") val stargazersCount: Int,
+        val url: String
+)
+
+data class RepoResult(
+        val total_count: Int,
+        val incomplete_results: Boolean,
+        val items: List<Repository>
+)

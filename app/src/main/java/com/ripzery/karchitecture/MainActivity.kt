@@ -1,27 +1,32 @@
 package com.ripzery.karchitecture
 
 import android.arch.lifecycle.*
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.ripzery.karchitecture.model.Result
-import com.ripzery.karchitecture.model.User
-import com.ripzery.karchitecture.viewmodel.MainViewModel
+import com.ripzery.karchitecture.model.Repository
+import com.ripzery.karchitecture.viewmodel.RepositoryViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : LifecycleActivity() {
+class MainActivity : BaseActivity() {
 
-    lateinit var mViewModel: MainViewModel
+    lateinit var mViewModel: RepositoryViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initInstance()
+    }
 
-        mViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+    fun initInstance(){
+        mViewModel = ViewModelProviders.of(this).get(RepositoryViewModel::class.java)
+        showRepositories()
+    }
 
-        mViewModel.getUserLiveData().observe(this, Observer<User> {
-            tvName.text = it?.login
-            tvSomething.text = it?.starredUrl
+    fun showRepositories(){
+        mViewModel.repositories.observe(this, Observer<List<Repository>> {
+            Log.d(this.localClassName, it?.toString())
+            tvName.text = it?.get(0)?.fullName
+            tvSomething.text = it?.get(0)?.url
         })
     }
 }
