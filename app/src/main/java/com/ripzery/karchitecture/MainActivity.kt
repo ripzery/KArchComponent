@@ -3,11 +3,13 @@ package com.ripzery.karchitecture
 import android.arch.lifecycle.*
 import android.os.Bundle
 import android.util.Log
+import com.ripzery.karchitecture.ext.EuroLogger
+import com.ripzery.karchitecture.ext.info
 import com.ripzery.karchitecture.model.Repository
 import com.ripzery.karchitecture.viewmodel.RepositoryViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), EuroLogger {
 
     lateinit var mViewModel: RepositoryViewModel
 
@@ -22,9 +24,10 @@ class MainActivity : BaseActivity() {
         showRepositories()
     }
 
+
     fun showRepositories(){
         mViewModel.repositories.observe(this, Observer<List<Repository>> {
-            Log.d(this.localClassName, it?.toString())
+            info { it?.toString() }
             tvName.text = it?.get(0)?.fullName
             tvSomething.text = it?.get(0)?.url
         })

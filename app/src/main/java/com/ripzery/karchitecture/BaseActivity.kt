@@ -11,8 +11,7 @@ import android.support.v7.app.AppCompatActivity
  * Created by Euro on 7/21/2017 AD.
  */
 open class BaseActivity : AppCompatActivity(), LifecycleRegistryOwner {
-    val registry: LifecycleRegistry by lazy { LifecycleRegistry(this) }
-
+    val registry: LifecycleRegistry = LifecycleRegistry(this)
     override fun getLifecycle(): LifecycleRegistry {
         return registry
     }
