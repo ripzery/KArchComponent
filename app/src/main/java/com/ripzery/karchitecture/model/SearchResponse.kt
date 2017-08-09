@@ -31,6 +31,7 @@ data class Repository(
         val name: String,
         @SerializedName("full_name") val fullName: String,
         @SerializedName("stargazers_count") val stargazersCount: Int,
+        @SerializedName("forks_count") val forksCount: Int,
         val url: String
 )
 
